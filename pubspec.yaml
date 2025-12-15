@@ -11,7 +11,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  flutter_3d_carousel: ^2.1.0  #キャンドル表示に使用
+
+  flutter_3d_carousel: ^2.1.0 #キャンドル表示に使用
+
   cached_network_image: ^3.3.0 #      〃
 
   table_calendar: ^3.2.0
@@ -28,11 +30,6 @@ dev_dependencies:
 
   share_plus: ^10.0.0
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^5.0.0
 
 flutter:
