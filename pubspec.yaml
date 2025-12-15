@@ -11,6 +11,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  flutter_3d_carousel: ^2.1.0  #キャンドル表示に使用
+  cached_network_image: ^3.3.0 #      〃
+
   table_calendar: ^3.2.0
   intl: ^0.20.2
   flutter_hooks: ^0.21.3+1
