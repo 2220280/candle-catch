@@ -1,6 +1,8 @@
 //プロフィール画面　Navibar右下
 import 'package:flutter/material.dart';
 
+import './candleList.dart';
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -23,15 +25,18 @@ class _ProfileState extends State<Profile> {
     final List<Map<String, String>> items = [
       {
         "image": "https://picsum.photos/800/1400/",
-        "name": "2023年",
+        "name": "2023",
+        "candles": "12"
       },
       {
         "image": "https://picsum.photos/800/1400/",
-        "name": "2024年",
+        "name": "2024",
+        "candles": "24"
       },
       {
         "image": "https://picsum.photos/800/1400/",
-        "name": "2025年",
+        "name": "2025",
+        "candles": "8"
       },
     ];
 
@@ -129,7 +134,7 @@ class _ProfileState extends State<Profile> {
             ),
             // ーーーーーーーーーーーーここまでーーーーーーーーーーーー
 
-
+            //年ごとの誕生日ここからーーーーーーーーーーーーーーーーーー
             SizedBox(
               height: height * 0.45,
               child: PageView.builder(
@@ -149,11 +154,14 @@ class _ProfileState extends State<Profile> {
                           scale: value,
                           child: GestureDetector(
                             onTap: () {
-                              // タップされたときの処理 現在は仮処理
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text("${items[index]["name"]} がタップされました"),
-                                ),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Candlelist(
+                                    year: items[index]["name"].toString(),
+                                    candles: items[index]["candles"].toString()
+                                  ),
+                                )
                               );
                             },
                             child: Container(
@@ -168,8 +176,6 @@ class _ProfileState extends State<Profile> {
                                     aspectRatio: 3 / 4,
                                       child: Image.network(
                                         items[index]["image"]!,
-                                        // width: width * 1.0,
-                                        // height: height * 0.25,
                                         fit: BoxFit.cover,
                                       ),
                                   ),
@@ -192,44 +198,10 @@ class _ProfileState extends State<Profile> {
                   );
                 }
               )
-
             ),
-
-
-            
-            // SizedBox(
-            //   height: 250,
-            //   child: PageView.builder(
-            //     controller: _controller,
-            //     itemCount: images.length,
-            //     itemBuilder: (context, index) {
-            //       // 中央との差を計算（0 が中央）
-            //       double distance = (_currentPage - index).abs();
-
-            //       // scale を距離に応じて変化させる（最大 1.0、最小 0.6）
-            //       double scale = 1.0 - (distance * 0.3);
-            //       if (scale < 0.6) scale = 0.6;
-
-            //       return Transform.scale(
-            //         scale: scale,
-            //         child: Padding(
-            //           padding: const EdgeInsets.symmetric(horizontal: 8),
-            //           child: ClipRRect(
-            //             borderRadius: BorderRadius.circular(20),
-            //             child: Image.network(
-            //               images[index],
-            //               fit: BoxFit.cover,
-            //             ),
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
-
+            //－－－－－－－－－－－ここまでーーーーーーーーーーーーーー
           ],
         ),
-        
       )
     );
   }
