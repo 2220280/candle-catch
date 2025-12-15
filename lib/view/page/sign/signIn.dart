@@ -94,6 +94,7 @@ class _SinInForm extends StatelessWidget {
           ),
         ),
         SizedBox(height: height * 0.12),
+        //TODO:エラー解決
         BrandGradientButton(
           text: 'ログイン',
           onPressed: () {}, // TODO: 登録処理

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // クリップボード用
-import 'package:share_plus/share_plus.dart'; // シェア機能用
+// import 'package:share_plus/share_plus.dart'; // TODO:シェア機能用
 import 'package:flutter/foundation.dart' show kIsWeb; // Web判定用
 import 'qr_scan_screen.dart'; // 次の画面への遷移用
 
@@ -18,7 +18,7 @@ class MyQrScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // 画面サイズ
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       // 背景画像を全体に設定
       body: Container(
@@ -26,7 +26,7 @@ class MyQrScreen extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/candleBackScreen.png'), 
+            image: AssetImage('images/candleBackScreen.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -38,29 +38,42 @@ class MyQrScreen extends StatelessWidget {
                 children: [
                   // ヘッダー
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // 閉じるボタン
                         IconButton(
-                          icon: const Icon(Icons.close, color: Colors.white, size: 30),
+                          icon: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                           onPressed: () => Navigator.pop(context),
                         ),
                         // QRスキャン画面へ遷移するボタン
                         IconButton(
-                          icon: const Icon(Icons.qr_code_scanner, color: Colors.white, size: 30),
+                          icon: const Icon(
+                            Icons.qr_code_scanner,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const QrScanScreen()),
+                              MaterialPageRoute(
+                                builder: (context) => const QrScanScreen(),
+                              ),
                             );
                           },
                         ),
                       ],
                     ),
                   ),
-                  
+
                   SizedBox(height: size.height * 0.1),
 
                   // QRコードカード
@@ -90,10 +103,17 @@ class MyQrScreen extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.textPrimary, width: 3),
+                              border: Border.all(
+                                color: AppColors.textPrimary,
+                                width: 3,
+                              ),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Icon(Icons.qr_code_2, size: 150, color: AppColors.textPrimary),
+                            child: const Icon(
+                              Icons.qr_code_2,
+                              size: 150,
+                              color: AppColors.textPrimary,
+                            ),
                           ),
                           const SizedBox(height: 10),
                           // ID
@@ -126,7 +146,7 @@ class MyQrScreen extends StatelessWidget {
                             if (kIsWeb) {
                               _showSnackBar(context, 'シェア画面を開きます');
                             } else {
-                              Share.share('私のCandleCatch IDは sota_sota です！ https://candlecatch.com/id/sota_sota');
+                              // Share.share('私のCandleCatch IDは sota_sota です！ https://candlecatch.com/id/sota_sota');
                             }
                           },
                         ),
@@ -136,7 +156,11 @@ class MyQrScreen extends StatelessWidget {
                           icon: Icons.link,
                           label: 'リンクコピー',
                           onTap: () {
-                            Clipboard.setData(const ClipboardData(text: "https://candlecatch.com/id/sota_sota"));
+                            Clipboard.setData(
+                              const ClipboardData(
+                                text: "https://candlecatch.com/id/sota_sota",
+                              ),
+                            );
                             _showSnackBar(context, 'リンクをコピーしました！');
                           },
                         ),
@@ -145,7 +169,8 @@ class MyQrScreen extends StatelessWidget {
                         _ActionButton(
                           icon: Icons.download,
                           label: 'ダウンロード',
-                          onTap: () => _showSnackBar(context, 'QRコードをダウンロードしました！'),
+                          onTap: () =>
+                              _showSnackBar(context, 'QRコードをダウンロードしました！'),
                         ),
                         const SizedBox(width: 15),
                         // ID検索
