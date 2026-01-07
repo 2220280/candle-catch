@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:firebase_core/firebase_core.dart';
 import './view/page/navibar.dart';
 import './constants/colors.dart';
 import 'firebase_options.dart';
@@ -8,6 +9,8 @@ import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // firebase_options.dartの中身を使う
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // Firebase 初期化 (必要ならコメント外す)
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
