@@ -1,4 +1,4 @@
-//プロフィール画面　Navibar右下
+//プロフィール画面 Navibar右下
 import 'dart:convert';
 
 import 'package:candlecatch/view/page/birthdayMemory/candle.dart';
