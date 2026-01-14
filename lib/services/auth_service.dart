@@ -9,7 +9,12 @@ class AuthService {
   Stream<User?> get userChanges => _auth.authStateChanges();
 
   // サインアップ機能（AuthenticationとFirebaseへのデータ保存を統合）
-  Future<String?> signUp(String email, String password, String username) async {
+  Future<String?> signUp(
+    String email,
+    String password,
+    String username,
+    String displayId,
+  ) async {
     try {
       // ユーザ作成
       UserCredential userCredential = await _auth
@@ -21,6 +26,7 @@ class AuthService {
           uid: userCredential.user!.uid, // Authenticationで作成されたUID
           email: email,
           username: username,
+          displayId: displayId,
         );
       }
 
