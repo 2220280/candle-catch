@@ -1,19 +1,16 @@
 //ボタンのコンポーネント
-
 import 'package:flutter/material.dart';
-import 'package:candlecatch/constants/colors.dart';
+import '../../constants/colors.dart';
 
-// グラデーション四角ボタン
-class BrandGradientButton extends StatelessWidget {
-  final String text;
+class ButtonComponent extends StatelessWidget {
   final VoidCallback onPressed;
+  final String text;
 
-  const BrandGradientButton({
+  const ButtonComponent({
     super.key,
-    required this.text,
     required this.onPressed,
+    this.text = 'DEFAULT',
   });
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,6 +30,48 @@ class BrandGradientButton extends StatelessWidget {
             fontSize: 32,
             fontFamily: "Corporate Logo Rounded Bold",
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// グラデーション四角ボタン
+class BrandGradientButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const BrandGradientButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return Container(
+      height: height * 0.05,
+      width: width * 0.4,
+      decoration: BoxDecoration(
+        gradient: AppColors.kBrandGradient,
+        boxShadow: [
+          BoxShadow(
+            //TODO:Boxに影つける
+          ),
+        ],
+        borderRadius: BorderRadius.circular(15),
+      ),
+
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+        ),
+        child: Container(
+          child: Text(text, style: TextStyle(color: AppColors.textWhite)),
         ),
       ),
     );

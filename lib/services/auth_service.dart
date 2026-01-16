@@ -18,6 +18,7 @@ class AuthService {
       //  認証成功後 でデータを保存auth_service.dart でこの createNewUserData が正しく呼び出されているか確認すれば、認証とデータベース連携のバックエンド作業は完了
       if (userCredential.user != null) {
         await DatebaseService().createNewUserData(
+
           uid: userCredential.user!.uid, // Authenticationで作成されたUID
           email: email,
           username: username,

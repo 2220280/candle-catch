@@ -11,6 +11,7 @@ import 'package:candlecatch/view/page/birthdayMemory/YearDetail.dart';
 class Profile extends StatelessWidget {
   final int current; // 図鑑達成数
 
+
   const Profile({super.key, required this.current});
   @override
   Widget build(BuildContext context) {
@@ -99,6 +100,7 @@ class _ProfileHeader extends StatelessWidget {
         height: height * 0.03, // アイコンサイズに合わせて高さを設定
         child: Image.asset('images/addFriend.png', fit: BoxFit.contain),
       ),
+
     );
   }
 
