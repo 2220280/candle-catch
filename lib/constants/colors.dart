@@ -12,8 +12,15 @@ class AppColors {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
+  static const LinearGradient kBrandGradientWidth = LinearGradient(
+    colors: [AppColors.gradientStart, AppColors.gradientEnd],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+  static final BarColor = ColorTween(begin: gradientStart, end: gradientEnd);
 
   // テキスト色
   static const Color textBlack = Color(0xff1E2A54);
+  static const Color textLightBlack = Color(0xff6D6D6D);
   static const Color textWhite = Color(0xFFFFF8E7);
 }
