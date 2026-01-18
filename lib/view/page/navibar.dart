@@ -14,7 +14,7 @@ class Navibar extends StatefulWidget {
 }
 
 class _NavibarState extends State<Navibar> {
-  static const _screens = [Bsignal(), Home(), Profile()];
+  static const _screens = [Bsignal(), Home(), Profile(current: DateTime.april)];
 
   int _selectedIndex = 0;
 
