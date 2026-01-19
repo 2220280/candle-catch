@@ -96,3 +96,44 @@ class AppBackButton extends StatelessWidget {
     );
   }
 }
+
+//丸button
+class TopCircleButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+  final double size;
+
+  const TopCircleButton({
+    super.key,
+    required this.icon,
+    required this.onTap,
+    this.size = 44,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: const LinearGradient(
+            colors: [Color(0xFFFFC371), Color(0xFFFF5F6D)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Icon(icon, color: Colors.white, size: size * 0.5),
+      ),
+    );
+  }
+}
