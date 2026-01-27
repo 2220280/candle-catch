@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../../../services/database_service.dart';
 
 // 色定義
 class AppColors {
@@ -17,7 +19,25 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
   // リクエストが送信されたかどうかを管理するフラグ
   bool _isRequestSent = false;
 
-  void _sendRequest() {
+  // 本来は前の画面から渡される友達のデータ
+  final String friendUid = "friend_user_abc_123"; // 仮のID
+  final String friendName = "そうた";
+  final String friendImageUrl = "https://placehold.co/100x100/png?text=Icon";
+  final DateTime friendBirthday = DateTime(2026, 1, 20);
+
+  Future<void> _sendRequest() async {
+    final String? currentUid = DatabaseService().currentUid;
+
+    // ログインチェック
+    if (currentUid == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('エラー：ログインユーザーが見つかりません。')));
+      }
+      return;
+    }
+
     setState(() {
       _isRequestSent = true;
     });
@@ -26,6 +46,29 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
     // Future.delayed(const Duration(seconds: 3), () {
     //   if (mounted) Navigator.pop(context);
     // });
+
+    try {
+      // DatabaseService を使用して Firestore に書き込み
+      // 自分のカレンダー（celebrationsコレクション）に友達の誕生日を書き込む
+      await DatabaseService().addFriendToMyCalendar(
+        myUid: currentUid,
+        friendUid: friendUid,
+        friendName: friendName,
+        photoUrl: friendImageUrl,
+        birthday: friendBirthday,
+      );
+      // 成功したらSnackBarなどで通知（任意）
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('カレンダーに誕生日を追加しました！')));
+      }
+    } catch (e) {
+      debugPrint('カレンダー登録エラー: $e');
+      if (mounted) {
+        setState(() => _isRequestSent = false);
+      }
+    }
   }
 
   @override
@@ -48,7 +91,11 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                 top: 10,
                 left: 10,
                 child: IconButton(
-                  icon: const Icon(Icons.chevron_left, color: Colors.white, size: 35),
+                  icon: const Icon(
+                    Icons.chevron_left,
+                    color: Colors.white,
+                    size: 35,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
@@ -57,7 +104,10 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
               Center(
                 child: Container(
                   width: 300,
-                  padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 40,
+                    horizontal: 20,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFF8E1), // クリーム色背景
                     borderRadius: BorderRadius.circular(20),
@@ -75,13 +125,15 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                       // アイコン画像
                       const CircleAvatar(
                         radius: 50,
-                        backgroundImage: NetworkImage('https://placehold.co/100x100/png?text=Icon'), // ダミー画像
+                        backgroundImage: NetworkImage(
+                          'https://placehold.co/100x100/png?text=Icon',
+                        ), // ダミー画像
                         backgroundColor: Colors.grey,
                       ),
                       const SizedBox(height: 20),
                       // 名前
                       const Text(
-                        'mmmmmm',
+                        'そうた',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -89,7 +141,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      
+
                       // 友達リクエストを送るボタン
                       SizedBox(
                         width: double.infinity,
@@ -113,7 +165,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      
+
                       // キャンセルボタン
                       SizedBox(
                         width: double.infinity,
@@ -162,7 +214,10 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                         );
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.9),
                           borderRadius: BorderRadius.circular(30),
