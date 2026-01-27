@@ -1,15 +1,13 @@
+// マイQRコード画面
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // クリップボード用
 // import 'package:share_plus/share_plus.dart'; // TODO:シェア機能用
 import 'package:flutter/foundation.dart' show kIsWeb; // Web判定用
 import 'qr_scan_screen.dart'; // 次の画面への遷移用
+import 'package:candlecatch/constants/colors.dart';
 
 // 色定数
-class AppColors {
-  static const Color textPrimary = Color(0xFF333333);
-  static const Color textWhite = Colors.white;
-  static const Color accentOrange = Color(0xFFFFAB91);
-}
 
 class MyQrScreen extends StatelessWidget {
   const MyQrScreen({super.key});
