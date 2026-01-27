@@ -1,12 +1,13 @@
+//友達のprofile画面
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../services/database_service.dart';
 
-// 色定義
-class AppColors {
-  static const Color textPrimary = Color(0xFF333333);
-  static const Color accentOrange = Color(0xFFFFAB91);
-}
+
+
+
+import 'package:flutter/material.dart';
+import 'package:candlecatch/constants/colors.dart';
 
 class FriendProfileScreen extends StatefulWidget {
   const FriendProfileScreen({super.key});

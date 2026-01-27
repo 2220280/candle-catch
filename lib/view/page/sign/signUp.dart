@@ -1,4 +1,4 @@
-//新規登録画面
+//PAGE:新規登録画面
 import 'package:flutter/material.dart';
 import 'package:candlecatch/constants/colors.dart';
 import 'package:candlecatch/view/components/form.dart';

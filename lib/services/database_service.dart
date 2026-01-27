@@ -112,7 +112,7 @@ class DatabaseService {
     return _db
         .collection('celebrations')
         .where('receiver_id', isEqualTo: userId)
-        .orderBy('celeberation_date', descending: true)
+        .orderBy('celebration_date', descending: true)
         .snapshots()
         .map(
           (snapshot) => snapshot.docs
