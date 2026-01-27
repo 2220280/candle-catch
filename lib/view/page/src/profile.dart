@@ -1,16 +1,21 @@
-//プロフィール画面 Navibar右下
-import 'dart:convert';
-
-import 'package:candlecatch/view/page/birthdayMemory/candle.dart';
+//PAGE:プロフィール画面 Navibar右下
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+///const
 import 'package:candlecatch/constants/colors.dart';
-import 'package:candlecatch/view/page/birthdayMemory/YearDetail.dart';
+
+///components
+import '../../components/button.dart';
+
+///page
+import 'package:candlecatch/view/page/birthdayMemory/candle.dart';
+import './setting.dart';
+import '../addFriends/my_qr_screen.dart';
 
 // Profile 呼び出しの際に図鑑達成数取得
 class Profile extends StatelessWidget {
   final int current; // 図鑑達成数
-
 
   const Profile({super.key, required this.current});
   @override
@@ -19,43 +24,27 @@ class Profile extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: AppColors.background,
+        toolbarHeight: height * 0.1,
+        elevation: 0,
+        title: _buildTopBar(context),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            _ProfileHeader(),
+            SizedBox(height: height * 0.05),
+            Align(alignment: Alignment.center, child: _buildUserInfo()),
             SizedBox(height: height * 0.05),
             _AchievementBar(progress: current / 366, current: current),
             _StackedCarouselPage(),
-            //TODO: ナビバー追加
           ],
         ),
       ),
     );
   }
-}
 
-class _ProfileHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          // 1. ユーザー名とフレンド追加、設定アイコン
-          _buildTopBar(context),
-          SizedBox(height: height * 0.03),
-          // 2. プロフィール画像、名前、生年月日
-          _buildUserInfo(context),
-        ],
-      ),
-    );
-  }
-
-  // ユーザー名とフレンド追加、設定アイコン
+  //topbar
   Widget _buildTopBar(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Row(
@@ -64,100 +53,54 @@ class _ProfileHeader extends StatelessWidget {
         const Text(
           'sota_sota',
           style: TextStyle(
-            fontSize: 32,
+            fontSize: 30,
             fontFamily: "Corporate Logo Rounded Bold",
             color: AppColors.textBlack,
           ),
         ),
         Row(
           children: <Widget>[
-            _buildFriendButton(context),
+            TopCircleButton(
+              icon: Icons.qr_code_2,
+              onTap: () {
+                // フレンド画面へ遷移
+                print('tap');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyQrScreen()),
+                );
+              },
+            ),
             SizedBox(width: width * 0.03),
-            _buildSettingsButton(context),
+            // _buildSettingsButton(context),
+            TopCircleButton(
+              icon: Icons.settings,
+              onTap: () {
+                // 設定画面へ遷移
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Setting()),
+                );
+              },
+            ),
           ],
         ),
       ],
     );
   }
 
-  // フレンドアイコン（画像）のボタン
-  Widget _buildFriendButton(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
-    return InkWell(
-      onTap: () {
-        // フレンド画面へ遷移
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Profile(current: 20) /*FriendsScreen()*/,
-          ),
-        );
-      },
-      child: SizedBox(
-        width: width * 0.07, // アイコンサイズに合わせて幅を設定
-        height: height * 0.03, // アイコンサイズに合わせて高さを設定
-        child: Image.asset('images/addFriend.png', fit: BoxFit.contain),
-      ),
-
-    );
-  }
-
-  // 設定アイコンのボタン
-  Widget _buildSettingsButton(BuildContext context) {
-    // IconButtonは標準でタップ可能で、マテリアルデザインのリップルエフェクトを持つ
-    return IconButton(
-      icon: const Icon(Icons.settings, color: AppColors.textBlack, size: 28),
-      padding: EdgeInsets.zero, // IconButtonのデフォルトのパディングを削除したい場合
-      constraints: const BoxConstraints(), // サイズをIconウィジェットに合わせたい場合
-      onPressed: () {
-        // 設定画面へ遷移
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Profile(current: 20) /*SettingsScreen()*/,
-          ),
-        );
-      },
-    );
-  }
-
-  // プロフィール画像とテキスト情報
-  Widget _buildUserInfo(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
+  //user情報
+  //TODO: サイズ調整必要
+  Widget _buildUserInfo() {
+    final String img = "icon/icon1.png";
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        const CircleAvatar(
-          radius: 40,
-          backgroundImage: AssetImage('images/card1.JPEG'), //TODO: プロフィール画像
-          backgroundColor: AppColors.textLightBlack, // 画像がない場合
-        ),
-
-        SizedBox(width: width * 0.05),
-
-        // 名前と生年月日
+      children: [
+        Image.asset(img),
+        const SizedBox(width: 12),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Sota', //TODO: 名前
-              style: TextStyle(fontSize: 22, color: AppColors.textBlack),
-            ),
-            SizedBox(height: height * 0.005),
-            Text(
-              '2004/01/21', //TODO: 誕生日
-              style: TextStyle(
-                fontSize: 32,
-                fontFamily: "Corporate Logo Rounded Bold",
-                color: AppColors.textBlack,
-              ),
-            ),
-          ],
+          children: const [Text('SOTA'), Text('2004/10/10')],
         ),
       ],
     );
@@ -339,42 +282,20 @@ class _StackedCarouselPageState extends State<_StackedCarouselPage> {
     required double relativePosition,
     required bool isCurrentPage,
   }) {
-    final height = MediaQuery.of(context).size.height; // 844
-    final width = MediaQuery.of(context).size.width; // 390
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
-    // ------------------------------------
-    // スケール (大きさ) の計算を再調整
-    // ------------------------------------
-    // relativePosition.abs() が 0 (中央) から離れるほど、 scale の値が小さくなります
-    // 0.2 は調整係数です。この値を大きくすると、奥のカードがより急激に小さくなります。
-    // 小さくすると、奥のカードの大きさが中央に近くなります。
-    final double calculatedScale =
-        1.0 - (relativePosition.abs() * 0.5); // 例: 0.25 に変更
+    final double calculatedScale = 1.0 - (relativePosition.abs() * 0.5);
 
-    // 最小スケールを設定 (カードが極端に小さくなりすぎないように)
-    // 写真のUIのように奥のカードを小さく見せるには、この最小値を低く設定します。
-    // 例: 0.7 から 0.6 や 0.5 に変更
     final double finalScale = math.max(0.7, calculatedScale);
 
-    // 不透明度も奥に行くほど下げる
-    // 0.3 も調整係数です。大きくすると、奥のカードがより早く透明に近づきます。
     final double calculatedOpacity = 1.0 - (relativePosition.abs() * 0.3);
-    final double finalOpacity = math.max(
-      0.0,
-      calculatedOpacity,
-    ); // 最小不透明度 0.0 を維持
+    final double finalOpacity = math.max(0.0, calculatedOpacity);
 
-    // X軸の移動量 (offsetX)
-    // 100.0 は調整値です。この値を変更して重なり具合を調整してください。
     final double offsetX = relativePosition * 0;
 
-    // Y軸の移動量 (offsetY)
-    // 20.0 は調整値です。
     final double currentOffsetY = relativePosition.abs() * 0;
 
-    // ------------------------------------
-    // Transform の適用 (finalScale を使用)
-    // ------------------------------------
     Key? cardKey = isCurrentPage
         ? ValueKey('center_card_$imagePath')
         : null; // add
@@ -477,7 +398,3 @@ class _StackedCarouselPageState extends State<_StackedCarouselPage> {
     );
   }
 }
-
-
-
-// TODO: カードタップ後遷移処理

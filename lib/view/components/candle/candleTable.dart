@@ -1,10 +1,10 @@
-//キャンドルをテーブルに載せた状態のコンポーネント
+//PAGE:キャンドルをテーブルに載せた状態のコンポーネント
 import 'dart:math';
 import 'package:flutter/material.dart';
 import './candle.dart';
 
 class CandleTable extends StatefulWidget {
-  final List<String> items = ["A", "B", "C", "D", "E", "F", "G", "C"];
+  final List<String> items = ["A", "B", "C", "D", "E", "F", "G"];
 
   CandleTable({Key? key}) : super(key: key);
 
@@ -42,12 +42,13 @@ class CandleTableState extends State<CandleTable> {
       );
     });
 
-    // depth(奥)→(手前)の順にソート
     itemData.sort((a, b) => a.depth.compareTo(b.depth));
 
     return Container(
-      decoration: BoxDecoration(color: Colors.blue),
       child: GestureDetector(
+        onTap: () {
+          //TODO: キャンドル選択時の処理
+        },
         onHorizontalDragUpdate: (details) {
           setState(() {
             angle += details.delta.dx * sensitivity;

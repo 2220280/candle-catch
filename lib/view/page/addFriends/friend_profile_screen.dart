@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
+//友達のprofile画面
 
-// 色定義
-class AppColors {
-  static const Color textPrimary = Color(0xFF333333);
-  static const Color accentOrange = Color(0xFFFFAB91);
-}
+import 'package:flutter/material.dart';
+import 'package:candlecatch/constants/colors.dart';
 
 class FriendProfileScreen extends StatefulWidget {
   const FriendProfileScreen({super.key});
@@ -48,7 +45,11 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                 top: 10,
                 left: 10,
                 child: IconButton(
-                  icon: const Icon(Icons.chevron_left, color: Colors.white, size: 35),
+                  icon: const Icon(
+                    Icons.chevron_left,
+                    color: Colors.white,
+                    size: 35,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
@@ -57,7 +58,10 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
               Center(
                 child: Container(
                   width: 300,
-                  padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 40,
+                    horizontal: 20,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFF8E1), // クリーム色背景
                     borderRadius: BorderRadius.circular(20),
@@ -75,7 +79,9 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                       // アイコン画像
                       const CircleAvatar(
                         radius: 50,
-                        backgroundImage: NetworkImage('https://placehold.co/100x100/png?text=Icon'), // ダミー画像
+                        backgroundImage: NetworkImage(
+                          'https://placehold.co/100x100/png?text=Icon',
+                        ), // ダミー画像
                         backgroundColor: Colors.grey,
                       ),
                       const SizedBox(height: 20),
@@ -89,7 +95,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      
+
                       // 友達リクエストを送るボタン
                       SizedBox(
                         width: double.infinity,
@@ -113,7 +119,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      
+
                       // キャンセルボタン
                       SizedBox(
                         width: double.infinity,
@@ -162,7 +168,10 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                         );
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.9),
                           borderRadius: BorderRadius.circular(30),

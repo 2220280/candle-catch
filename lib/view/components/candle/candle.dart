@@ -10,7 +10,12 @@ class Candle extends StatefulWidget {
 class _CandleState extends State<Candle> {
   @override
   Widget build(BuildContext context) {
-    //TODO:書き直す
-    return Scaffold();
+    //TODO: キャンドルの見た目実装
+    return Container(
+      width: 200,
+      height: 200,
+
+      child: Image(image: AssetImage('candle/candle.png')),
+    );
   }
 }

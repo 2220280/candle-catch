@@ -1,8 +1,9 @@
-// キャンドル画面
-import 'dart:convert';
+//PAGE: 年ごとのベストショットとキャンドルページ
+//TODO:戻るボタン追加
 
 import 'package:flutter/material.dart';
 import 'package:candlecatch/constants/colors.dart';
+import '../../components/candle/candleTable.dart';
 
 class candle extends StatelessWidget {
   final String year;
@@ -27,9 +28,32 @@ class candle extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              Padding(padding: EdgeInsets.only(top: height * 0.05)),
+
+              Align(
+                alignment: Alignment.centerLeft,
+
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back, color: AppColors.textWhite),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
               _BestShot(year: year, imagePath: imagePath),
-              //TODO: キャンドル追加
-              //TODO: ナビバー追加
+              SizedBox(height: height * 0.03),
+
+              Text(
+                'キャンドル',
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textWhite,
+                ),
+              ),
+              SizedBox(height: height * 0.02),
+
+              Container(width: width, child: CandleTable()),
             ],
           ),
         ),
@@ -56,13 +80,26 @@ class _BestShot extends StatelessWidget {
         Text(
           year,
           style: const TextStyle(
+            //TODO:font見直す
             fontFamily: "Corporate Logo Rounded Bold",
             fontSize: 40,
             fontWeight: FontWeight.bold,
             color: AppColors.textWhite,
           ),
         ),
-        SizedBox(height: height * 0.05),
+        SizedBox(height: height * 0.03),
+        Text(
+          'ベストショット',
+          style: const TextStyle(
+            //TODO:font見直す
+            // fontFamily: "Corporate Logo Rounded Bold",
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: AppColors.textWhite,
+          ),
+        ),
+        SizedBox(height: height * 0.02),
+
         Hero(
           tag: "$imagePath-$year",
           child: Container(
@@ -78,7 +115,7 @@ class _BestShot extends StatelessWidget {
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(5),
               child: Image.asset(imagePath, fit: BoxFit.cover),
             ),
           ),
